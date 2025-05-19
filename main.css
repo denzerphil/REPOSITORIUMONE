@@ -1,6 +1,36 @@
 body {
-    background-color: rgb(17, 17, 17);
+    background-color: rgb(173, 173, 173);
     color: rgba(240, 104, 14, 0.877);
     font-family: Arial;
     margin: 5px;
+}
+
+a:visited{
+    color: blueviolet;
+    opacity: 0.1;
+}
+
+a:link{
+    color: aquamarine;
+    opacity: 0.5;
+}
+
+li{
+    font-size: 20px;
+}
+
+a {
+    font-size: 20px;
+    color: green;
+    text-decoration: none;
+}
+
+a:hover {
+    color: red;
+    text-decoration: underline;
+}
+
+a:active {
+    color: black;
+    opacity: 0.3;
 }
