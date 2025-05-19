@@ -49,3 +49,19 @@ div.menu:hover{
     background-color: rgb(131, 131, 131);
     box-shadow: 0 0 15px rgb(65, 65, 65);
 }
+
+footer {
+    background-color: black;
+    color: lightgoldenrodyellow;
+    padding: 10px;
+    font-size: 16pt;
+    text-align: center;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    left: 0;
+}
+
+main {
+    margin: 10px 20px 45px;
+}
