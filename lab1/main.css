@@ -62,18 +62,6 @@ footer {
     left: 0;
 }
 
-header {
-    background-color: rgb(165, 39, 39);
-    color: lightgoldenrodyellow;
-    padding: 10px;
-    font-size: 16pt;
-    text-align: center;
-    position: fixed;
-    bottom: 0;
-    right: 0;
-    left: 0;
-}
-
 main {
     margin: 10px 20px 45px;
 }
