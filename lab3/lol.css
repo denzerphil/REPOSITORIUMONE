@@ -1,0 +1,80 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #7e0000;
+    background-image: url('backybak.png');
+    background-size: cover;
+    background-position: center;
+    animation: fadeInBackground 3s ease;
+}
+
+@keyframes fadeInBackground {
+    50% { opacity: 0.5; }
+    100% { opacity: 1; }
+}
+
+header {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding:1px 0;
+    font-size: 20pt;
+    animation: slideIn 2s ease;
+}
+
+@keyframes slideIn {
+    0% { transform: translateY(-100%); }
+    100% { transform: translateY(0); }
+}
+
+main {
+    padding: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.news-block {
+    width: 300px;
+    margin: 20px;
+    padding: 10px;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    transition: all 0.5s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.news-block:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.7);
+}
+
+.hidden-text {
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0s, opacity 0.5s linear;
+}
+
+.news-block:hover .hidden-text {
+    visibility: visible;
+    opacity: 1;
+}
+
+footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 1em 0;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    animation: fadeIn 2s ease;
+}
+
+@keyframes fadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+}
