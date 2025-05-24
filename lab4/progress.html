@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Прогресс бар</title>
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #f0f0f0;
+        }
+
+        .container {
+            text-align: center;
+        }
+
+        .progress-container {
+            width: 300px; /* Фиксированная ширина */
+            height: 30px;
+            background-color: #e0e0e0;
+            border-radius: 15px;
+            margin: 20px 0;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .progress-bar {
+            width: 0%;
+            height: 100%;
+            background-color: #4CAF50;
+            transition: width 0.1s linear;
+        }
+
+        .hold-button {
+            padding: 15px 30px;
+            font-size: 16px;
+            border: none;
+            border-radius: 25px;
+            background-color: #ffffff;
+            cursor: pointer;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Слабая тень */
+            transition: all 0.3s ease;
+        }
+
+        .hold-button:hover {
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Более выраженная тень */
+        }
+
+        .hold-button:active {
+            box-shadow: none; /* Убрать тень при нажатии */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="progress-container">
+            <div class="progress-bar"></div>
+        </div>
+        <button class="hold-button">Нажмите и удерживайте</button>
+    </div>
+
+    <script>
+        const button = document.querySelector('.hold-button');
+        const progressBar = document.querySelector('.progress-bar');
+        let interval = null;
+        let progress = 0;
+
+        // Обработчики событий
+        button.addEventListener('mousedown', startProgress);
+        button.addEventListener('mouseup', resetProgress);
+        button.addEventListener('mouseleave', resetProgress);
+
+        function startProgress() {
+            interval = setInterval(() => {
+                if(progress >= 100) {
+                    resetProgress();
+                    return;
+                }
+                progress += 1;
+                progressBar.style.width = `${progress}%`;
+            }, 50); // 5 секунд до 100% (50ms * 100 = 5000ms)
+        }
+
+        function resetProgress() {
+            clearInterval(interval);
+            progress = 0;
+            progressBar.style.width = '0%';
+        }
+    </script>
+</body>
+</html>
