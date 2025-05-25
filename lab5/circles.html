@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Филиппов Денис Максимович. 5</title>
+    <link rel="stylesheet" href="../main.css">
+    <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon">
+    <link rel="icon" href="../favicon-16x16.png">
+    <link rel="icon" href="../favicon-32x32.png">
+    <style>
+        body {
+            margin: 0;
+            min-height: 100vh;
+            max-height: 150vh;
+            position: relative;
+            background: #f0f0f0;
+        }
+
+        .circle {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            position: absolute;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: Arial, sans-serif;
+            font-size: 24px;
+            font-weight: bold;
+            color: white;
+            cursor: pointer;
+            transition: all 0.8s ease;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        .circle.hidden {
+            opacity: 0;
+            width: 0;
+            height: 0;
+            transform: scale(0);
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>НГТУ, ФБ, Лабораторная работа 5</h1>
+    </header>
+
+    <script>
+        // Создаем 10 кругов
+        for(let i = 1; i <= 10; i++) {
+            const circle = document.createElement('div');
+            circle.className = 'circle';
+            circle.textContent = i;
+            
+            // Случайный цвет в HSL формате
+            circle.style.backgroundColor = `hsl(${Math.random() * 360}, 70%, 60%)`;
+            
+            // Случайное позиционирование
+            circle.style.left = `${Math.random() * (window.innerWidth - 100)}px`;
+            circle.style.top = `${Math.random() * (window.innerHeight - 100)}px`;
+            
+            // Обработчик клика
+            circle.addEventListener('click', function() {
+                this.classList.add('hidden');
+                setTimeout(() => this.remove(), 800); // Удаление после анимации
+            });
+
+            document.body.appendChild(circle);
+        }
+    </script>
+
+    <footer>
+        <p>&copy; Денис Филиппов, ФБИ-33, 2 курс, 2025</p>
+    </footer>
+
+</body>
+</html>
