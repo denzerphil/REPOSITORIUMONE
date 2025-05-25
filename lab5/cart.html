@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Филиппов Денис Максимович. 5</title>
+    <link rel="stylesheet" href="../main.css">
+    <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon">
+    <link rel="icon" href="../favicon-16x16.png">
+    <link rel="icon" href="../favicon-32x32.png">
+    <style>
+
+        body {
+            font-family: Arial, sans-serif;
+            padding: 0px;
+        }
+        
+        .product {
+            position: relative;
+            margin-bottom: 5px;
+            margin: 10px;
+            margin-left: 10%;
+            padding: 11px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        input[type="number"] {
+            width: 60px;
+            padding: 5px;
+            margin-left: 10px;
+           
+        }
+        
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-left: 10%;
+        }
+        
+        button:hover {
+            background-color: #45a049;
+        }
+        
+        #total {
+            font-size: 20px;
+            margin-top: 20px;
+            font-weight: bold;
+            margin-left: 10%;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>НГТУ, ФБ, Лабораторная работа 5</h1>
+    </header>
+
+    <div style=" margin-left: 20%; border: px solid black; height: 500px; width: 450px; box-shadow: 0 0 15px rgba(128, 128, 128, 0.603); margin: auto;">
+        <h1 style="text-align: center; margin-bottom: 15%; margin-top: 20%; font-weight: 800; position: relative;">Корзина товаров</h1>
+            
+        <div class="product">
+            <span>Яблоки (100р/шт):</span>
+            <input type="number" id="apple" value="" min="0">
+        </div>
+            
+        <div class="product">
+            <span>Груши (80р/шт):</span>
+            <input type="number" id="pear" value="" min="0">
+        </div>
+            
+        <div class="product">
+            <span>Апельсины (150р/шт):</span>
+                <input type="number" id="orange" value="" min="0">
+        </div>
+            
+        <div class="product">
+            <span>Дыни (300р/шт):</span>
+            <input type="number" id="melon" value="" min="0">
+        </div>
+            
+        <button onclick="calculateTotal()">Рассчитать</button>
+        <div id="total"></div>
+    </div>
+    
+
+    <script>
+        // Цены товаров
+        const prices = {
+            apple: 100,
+            pear: 80,
+            orange: 150,
+            melon: 300
+        };
+
+        function calculateTotal() {
+            let total = 0;
+            
+            // Считаем для каждого товара
+            total += document.getElementById('apple').value * prices.apple;
+            total += document.getElementById('pear').value * prices.pear;
+            total += document.getElementById('orange').value * prices.orange;
+            total += document.getElementById('melon').value * prices.melon;
+            
+            // Отображаем результат
+            document.getElementById('total').textContent = 
+                `Общая цена: ${total}р`;
+        }
+        
+        // Первоначальный расчет при загрузке
+        calculateTotal();
+    </script>
+
+    <footer ondblclick="ShowGreets()">
+        <p>&copy; Денис Филиппов, ФБИ-33, 2 курс, 2025</p>
+    </footer>
+
+</body>
+</html>
