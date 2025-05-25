@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Филиппов Денис Максимович. 5</title>
+    <link rel="stylesheet" href="../main.css">
+    <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon">
+    <link rel="icon" href="../favicon-16x16.png">
+    <link rel="icon" href="../favicon-32x32.png">
+    <style>
+        main {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 90vh;
+            background: linear-gradient(45deg, #1a1a1a, #2c3e50);
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+        }
+
+        #tracker {
+            width: 300px;
+            height: 300px;
+            border: 3px solid #3498db;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(5px);
+            border-radius: 15px;
+            cursor: crosshair;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: #ecf0f1;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 20px rgba(52, 152, 219, 0.3);
+            padding: 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        #tracker::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, #3498db, transparent);
+            animation: rotate 4s linear infinite;
+        }
+
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .coord-box {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 10px 20px;
+            border-radius: 8px;
+            margin: 5px;
+            z-index: 1;
+        }
+
+        .key-indicator {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #e74c3c;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .active {
+            opacity: 1;
+        }
+
+        #status {
+            margin-top: 15px;
+            font-size: 0.9em;
+            color: #bdc3c7;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>НГТУ, ФБ, Лабораторная работа 5</h1>
+    </header>
+
+    <main>
+        <div id="tracker" onmousemove="showCoords(event)">
+        <div class="key-indicator" id="ctrlKey">CTRL</div>
+        <div class="key-indicator" id="altKey">ALT</div>
+        <div class="key-indicator" id="shiftKey">SHIFT</div>
+        
+        <div class="coord-box">
+            X: <span id="xCoord">0</span>
+        </div>
+        <div class="coord-box">
+            Y: <span id="yCoord">0</span>
+        </div>
+        <div id="status">Двигайте мышью внутри блока</div>
+    </div>
+
+    <script>
+        function showCoords(event) {
+            // Обновление координат
+            document.getElementById('xCoord').textContent = event.clientX - event.target.offsetLeft;
+            document.getElementById('yCoord').textContent = event.clientY - event.target.offsetTop;
+
+            // Проверка клавиш
+            const ctrl = event.ctrlKey;
+            const alt = event.altKey;
+            const shift = event.shiftKey;
+
+            // Изменение стилей
+            const tracker = document.getElementById('tracker');
+            tracker.style.color = ctrl ? '#e74c3c' : '#ecf0f1';
+            tracker.style.borderColor = alt ? '#2ecc71' : '#3498db';
+            tracker.style.boxShadow = shift ? 
+                '0 0 30px rgba(46, 204, 113, 0.5)' : 
+                '0 0 20px rgba(52, 152, 219, 0.3)';
+
+            // Показ индикаторов клавиш
+            document.getElementById('ctrlKey').classList.toggle('active', ctrl);
+            document.getElementById('altKey').classList.toggle('active', alt);
+            document.getElementById('shiftKey').classList.toggle('active', shift);
+
+            // Обновление статуса
+            const status = [];
+            if (ctrl) status.push('Ctrl');
+            if (alt) status.push('Alt');
+            if (shift) status.push('Shift');
+            document.getElementById('status').textContent = status.length ? 
+                `Нажаты: ${status.join(', ')}` : 
+                'Двигайте мышью внутри блока';
+        }
+    </script>
+    </main>
+
+    
+
+    <footer>
+        <p>&copy; Денис Филиппов, ФБИ-33, 2 курс, 2025</p>
+    </footer>
+
+</body>
+</html>
