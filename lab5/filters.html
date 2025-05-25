@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Фильтры для изображения</title>
+    <link rel="stylesheet" href="filters.css">
+    <link rel="icon" type="image/x-icon" href="lab5/favicon.ico">
+</head>
+<body>
+    <header>
+        <h1>Фильтры для изображения</h1>
+    </header>
+    
+    <main>
+        <!-- Brightness -->
+        <div class="filter-control">
+            <label>Яркость (0-500%):</label>
+            <input type="range" id="brightness" min="0" max="500" value="100" oninput="updateFilters()">
+            <span id="brightnessValue">100%</span>
+        </div>
+
+        <!-- Blur -->
+        <div class="filter-control">
+            <label>Размытие (0-20px):</label>
+            <input type="range" id="blur" min="0" max="20" value="0" oninput="updateFilters()">
+            <span id="blurValue">0px</span>
+        </div>
+
+        <!-- Contrast -->
+        <div class="filter-control">
+            <label>Контраст (0-500%):</label>
+            <input type="range" id="contrast" min="0" max="500" value="100" oninput="updateFilters()">
+            <span id="contrastValue">100%</span>
+        </div>
+
+        <!-- Grayscale -->
+        <div class="filter-control">
+            <label>Оттенки серого (0-100%):</label>
+            <input type="range" id="grayscale" min="0" max="100" value="0" oninput="updateFilters()">
+            <span id="grayscaleValue">0%</span>
+        </div>
+
+        <!-- Hue Rotate -->
+        <div class="filter-control">
+            <label>Цветовой тон (0-360deg):</label>
+            <input type="range" id="hue-rotate" min="0" max="360" value="0" oninput="updateFilters()">
+            <span id="hueRotateValue">0deg</span>
+        </div>
+
+        <!-- Invert -->
+        <div class="filter-control">
+            <label>Инверсия (0-100%):</label>
+            <input type="range" id="invert" min="0" max="100" value="0" oninput="updateFilters()">
+            <span id="invertValue">0%</span>
+        </div>
+
+        <!-- Saturate -->
+        <div class="filter-control">
+            <label>Насыщенность (0-500%):</label>
+            <input type="range" id="saturate" min="0" max="500" value="100" oninput="updateFilters()">
+            <span id="saturateValue">100%</span>
+        </div>
+
+        <!-- Sepia -->
+        <div class="filter-control">
+            <label>Сепия (0-100%):</label>
+            <input type="range" id="sepia" min="0" max="100" value="0" oninput="updateFilters()">
+            <span id="sepiaValue">0%</span>
+        </div>
+
+        <div class="image-container">
+            <img src="../lab4/awPFg96Ydr8.jpg" id="filteredImage" alt="Пример изображения">
+        </div>
+    </main>
+
+    <footer>
+        <p>© 2023 Лабораторная работа по фильтрам</p>
+    </footer>
+
+    <script>
+        function updateFilters() {
+            const image = document.getElementById('filteredImage');
+            
+            // Получаем значения всех фильтров
+            const filters = {
+                brightness: document.getElementById('brightness').value + '%',
+                blur: document.getElementById('blur').value + 'px',
+                contrast: document.getElementById('contrast').value + '%',
+                grayscale: document.getElementById('grayscale').value + '%',
+                'hue-rotate': document.getElementById('hue-rotate').value + 'deg',
+                invert: document.getElementById('invert').value + '%',
+                saturate: document.getElementById('saturate').value + '%',
+                sepia: document.getElementById('sepia').value + '%'
+            };
+
+            // Обновляем отображение значений
+            document.getElementById('brightnessValue').textContent = filters.brightness;
+            document.getElementById('blurValue').textContent = filters.blur;
+            document.getElementById('contrastValue').textContent = filters.contrast;
+            document.getElementById('grayscaleValue').textContent = filters.grayscale;
+            document.getElementById('hueRotateValue').textContent = filters['hue-rotate'];
+            document.getElementById('invertValue').textContent = filters.invert;
+            document.getElementById('saturateValue').textContent = filters.saturate;
+            document.getElementById('sepiaValue').textContent = filters.sepia;
+
+            // Формируем строку фильтров
+            const filterString = 
+                `brightness(${filters.brightness}) 
+                 blur(${filters.blur}) 
+                 contrast(${filters.contrast}) 
+                 grayscale(${filters.grayscale}) 
+                 hue-rotate(${filters['hue-rotate']}) 
+                 invert(${filters.invert}) 
+                 saturate(${filters.saturate}) 
+                 sepia(${filters.sepia})`;
+
+            // Применяем фильтры к изображению
+            image.style.filter = filterString;
+        }
+
+        // Инициализация по умолчанию
+        updateFilters();
+    </script>
+</body>
+</html>
