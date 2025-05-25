@@ -1,8 +1,9 @@
 body {
-    background-color: rgb(173, 173, 173);
+    background-color: rgb(221, 221, 221);
     color: rgba(240, 104, 14, 0.877);
     font-family: Arial;
-    margin: 5px;
+    margin: 0px;
+    padding: 0;
 }
 
 a:visited{
@@ -11,7 +12,7 @@ a:visited{
 }
 
 a:link{
-    color: aquamarine;
+    color: rgb(53, 53, 53);
     opacity: 0.5;
 }
 
@@ -25,11 +26,12 @@ a {
     text-decoration: none;
     transition: 1s 2s;
     text-align: center;
+    font-family: impact;
 }
 
 a:hover {
     color: red;
-    text-decoration: underline;
+    text-decoration: line-through;
     transition: 0.3s;
 }
 
@@ -51,9 +53,9 @@ div.menu:hover{
 }
 
 footer {
-    background-color: black;
-    color: lightgoldenrodyellow;
-    padding: 10px;
+    background-color: #000000;
+    color: rgb(255, 255, 255);
+    padding: 1px;
     font-size: 16pt;
     text-align: center;
     position: fixed;
@@ -63,17 +65,15 @@ footer {
 }
 
 header {
-    background-color: rgb(165, 39, 39);
-    color: lightgoldenrodyellow;
-    padding: 10px;
-    font-size: 16pt;
+    background-color: #0e0e0e;
+    color: white;
     text-align: center;
-    position: fixed;
-    bottom: 0;
-    right: 0;
-    left: 0;
+    padding: 1px;
+    margin: 0;
+    position: relative;
+    z-index: 1;
 }
 
 main {
-    margin: 10px 20px 45px;
+    margin: 0;
 }
