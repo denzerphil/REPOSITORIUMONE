@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Филиппов Денис Максимович. 5</title>
+    <link rel="stylesheet" href="../main.css">
+    <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon">
+    <link rel="icon" href="../favicon-16x16.png">
+    <link rel="icon" href="../favicon-32x32.png">
+    <style>
+        main {
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: #f5f5f5;
+            min-height: 100vh;
+            margin: 20px;
+        }
+
+        .container {
+            width: 600px;
+            margin: 20px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            padding: 20px;
+        }
+
+        img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            transition: filter 0.3s ease;
+        }
+
+        .info-panel {
+            margin-top: 15px;
+            padding: 12px;
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 6px;
+            color: #495057;
+        }
+
+        .help-box {
+            margin-top: 25px;
+            padding: 15px;
+            background: #e9ecef;
+            border-radius: 8px;
+            width: 600px;
+        }
+
+        .key-hint {
+            display: inline-block;
+            padding: 6px 12px;
+            margin: 4px;
+            background: #fff;
+            border: 1px solid #adb5bd;
+            border-radius: 4px;
+            color: #212529;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>НГТУ, ФБ, Лабораторная работа 5</h1>
+    </header>
+
+    <main>
+        <div class="container">
+        <img src="../lab4/awPFg96Ydr8.jpg" id="targetImage" alt="Редактируемое изображение">
+        <div class="info-panel" id="filterInfo">Активный фильтр: Нет</div>
+    </div>
+
+    <div class="help-box">
+        <h3>Управление фильтрами:</h3>
+        <p>
+            <span class="key-hint">← →</span> Двигайте мышью по горизонтали для регулировки силы эффекта<br>
+            <span class="key-hint">Ctrl</span> + движение — Чёрно-белый фильтр<br>
+            <span class="key-hint">Alt</span> + движение — Цветовой тон<br>
+            <span class="key-hint">Shift</span> + движение — Яркость<br>
+            Левый край - эффект выключен, правый край - максимальная сила
+        </p>
+    </div>
+
+    <script>
+        const image = document.getElementById('targetImage');
+        const info = document.getElementById('filterInfo');
+
+        image.addEventListener('mousemove', (e) => {
+            const rect = image.getBoundingClientRect();
+            const xPos = (e.clientX - rect.left) / rect.width;
+            const intensity = Math.min(Math.max(xPos, 0), 1);
+            
+            let filterString = '';
+            let filterName = 'Нет';
+
+            if(e.ctrlKey) {
+                filterString = `grayscale(${intensity})`;
+                filterName = `Чёрно-белый (${Math.round(intensity * 100)}%)`;
+            }
+            else if(e.altKey) {
+                filterString = `hue-rotate(${intensity * 360}deg)`;
+                filterName = `Цветовой тон (${Math.round(intensity * 360)}°)`;
+            }
+            else if(e.shiftKey) {
+                filterString = `brightness(${100 + intensity * 200}%)`;
+                filterName = `Яркость (${Math.round(100 + intensity * 200)}%)`;
+            }
+            else {
+                filterString = `blur(${intensity * 8}px)`;
+                filterName = `Размытие (${Math.round(intensity * 8)}px)`;
+            }
+
+            image.style.filter = filterString;
+            info.textContent = `Активный фильтр: ${filterName}`;
+        });
+
+        image.addEventListener('mouseleave', () => {
+            image.style.filter = '';
+            info.textContent = 'Активный фильтр: Нет';
+        });
+    </script>
+    </main>
+    <footer>
+        <p>&copy; Денис Филиппов, ФБИ-33, 2 курс, 2025</p>
+    </footer>
+</body>
+</html>
