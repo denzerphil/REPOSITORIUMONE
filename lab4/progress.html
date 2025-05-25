@@ -2,29 +2,48 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>Прогресс бар</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Филиппов Денис Максимович. Лабораторные работы по WEB-программированию</title>
+    <link rel="stylesheet" href="../main.css">
+    <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon">
+    <link rel="icon" href="../favicon-16x16.png">
+    <link rel="icon" href="../favicon-32x32.png">
     <style>
         body {
             margin: 0;
             height: 100vh;
-            display: flex;
+            margin-left: auto;
+            margin-right: auto;
             justify-content: center;
-            align-items: center;
-            background-color: #f0f0f0;
+            background-color: #b8b8b8;
         }
 
         .container {
             text-align: center;
+            border: 2px solid #303030; height: 225px; width: 400px;
+            background-color: #6b6b6b81;
+            margin: 10px;
+            margin-top: 20%;
+            position: relative;
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: 13%;
         }
 
         .progress-container {
-            width: 300px; /* Фиксированная ширина */
+            width: 280px; /* Фиксированная ширина */
             height: 30px;
             background-color: #e0e0e0;
             border-radius: 15px;
-            margin: 20px 0;
+            margin: 20px;
+            margin-top: 10%;
             overflow: hidden;
             position: relative;
+            margin-left: auto;
+            margin-right: auto;
+            border: 2px solid #303030;
+
+
         }
 
         .progress-bar {
@@ -32,6 +51,7 @@
             height: 100%;
             background-color: #4CAF50;
             transition: width 0.1s linear;
+            
         }
 
         .hold-button {
@@ -52,10 +72,18 @@
         .hold-button:active {
             box-shadow: none; /* Убрать тень при нажатии */
         }
+
     </style>
 </head>
 <body>
+    <main>
+
+        <header>
+        <h1>НГТУ, ФБ, Лабораторная работа 4</h1>
+        </header>
+
     <div class="container">
+        <p style="margin-top: 5%; font-size: 16pt; font-weight: 800; font-family: arial; color: black;">Шкала прогресса</p>
         <div class="progress-container">
             <div class="progress-bar"></div>
         </div>
@@ -90,5 +118,12 @@
             progressBar.style.width = '0%';
         }
     </script>
+
+    </main>
+
+    <footer>
+        <p>&copy; Денис Филиппов, ФБИ-33, 2 курс, 2025</p>
+    </footer>
+
 </body>
 </html>
