@@ -20,6 +20,69 @@
             alert('Сумма ' +a+ ' и ' +b+ ' равна = ' +result);
         }
 
+        function ShowDiv () {
+            let inputA = document.getElementById('numberA');
+            let inputB = document.getElementById('numberB');
+
+            let a =parseInt (inputA.value);
+            let b =parseInt (inputB.value);
+            if (b == 0) {
+                alert('На ноль делить нельзя!');
+                inputB.focus();
+                inputB.select();
+                inputB.style.color ='red';
+                inputB.style.borderColor='red';
+                return;
+            }
+
+            if(isNaN(a)) {
+                alert('Введите числовое значение в первое поле');
+                return;
+            }
+            if(isNaN(b)) {
+                alert('Введите числовое значение во второе поле');
+                return;
+            }
+
+
+            inputB.style.color ='';
+            inputB.style.borderColor='';
+            let result=a/b;
+            alert('Результат деления ' +a+ ' на ' +b+ ' равен = ' +result);
+        }
+
+        function ShowStep () {
+            let inputA = document.getElementById('numberA');
+            let inputB = document.getElementById('numberB');
+
+            let a =parseInt (inputA.value);
+            let b =parseInt (inputB.value);
+            if (b == 0) {
+                alert(1);
+                return;
+            }
+            if (b == 1) {
+                alert(a);
+                return;
+            }
+
+            if(isNaN(a)) {
+                alert('Введите числовое значение в первое поле');
+                return;
+            }
+            if(isNaN(b)) {
+                alert('Введите числовое значение во второе поле');
+                return;
+            }
+
+
+            inputB.style.color ='';
+            inputB.style.borderColor='';
+            let result=a**b;
+            alert('Результат возведения ' +a+ ' в ' +b+ '  степень равен = ' +result);
+        }
+
+
         function ShowAuthor() {
             let Author = 'Автор страницы: \nФилиппов Денис Максимович'
             alert(Author);
@@ -32,13 +95,28 @@
 
     <style>
         .message{
-            display: inline-block; height: 50px; width: 400px; border-radius: 10px ; border: 2px solid black;  margin-top: 20%;
-            text-align: center; font-family: arial; font-size: 17pt; color: black; justify-content: center; 
-            background-color: rgb(228, 228, 228); margin: 50px; cursor: pointer;
+            display: grid; height: 60px; width: 400px; border-radius: 10px ; border: 0px solid black;  margin-top: 20%;
+            text-align: center; font-family: arial; font-size: 16pt; color: black; justify-content: center; font-weight: 500;
+            background-color: rgb(228, 228, 228); margin: 50px; cursor: pointer; align-content: center;
         }
         .message:hover{
             box-shadow: 0 0 15px rgba(0, 0, 0, 0.582);
             height: 55px; width: 405px;
+        }
+        label {
+            font-family: arial; font-size: 20pt; font-weight: 800;
+        }
+        .container{
+            margin-left: auto; margin-right: auto;
+            border: 0px solid black; height: 200px; width: 1000px; margin: 70px; border-radius: 10px;  
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.288); background: linear-gradient(to bottom, rgba(255, 255, 255, 0.301), rgba(128, 128, 128, 0.363),rgba(48, 48, 48, 0.63));
+            text-align: center; align-content: center; color: black;
+        }
+        .container2{
+            margin-left: auto; margin-right: auto; margin-top: 50px;
+            border: 0px solid black; height: 480px; width: 500px; border-radius: 10px;  
+            box-shadow: 0 0 40px rgba(0, 0, 0, 0.63); background-color: rgb(156, 156, 156);
+            text-align: center; align-content: center; 
         }
 
     </style>
@@ -51,12 +129,19 @@
         
     </header>
     <main>
-
-        <label>Первое число: <input type="number" value="" id="numberA"></label><br>
-        <label>Второе число: <input type="number" value="" id="numberB"></label><br>
-
-        <div class="message" onclick="ShowSum()">Сколько будет 5154+7891?</div>
-        <div class="message" onclick="ShowAuthor()">Узнать, кто автор страницы</div>
+        <div class='container'; style="margin: auto; margin-top: 3%;">
+            <p style="margin: 1px; font-family: arial; font-size: 20pt; font-weight: 600;">Панель ввода чисел</p><br>
+            <label>Первое число: <input type="number" value="" id="numberA"></label><br>
+            <label>Второе число: <input type="number" value="" id="numberB"></label><br>  
+        </div>
+        
+        <div class="container2">
+            <div class="message" onclick="ShowSum()">Сумма чисел</div>
+            <div class="message" onclick="ShowDiv()">Частное</div>
+            <div class="message" onclick="ShowStep()">Возведение в степень (a^b)</div>
+            <div class="message" onclick="ShowAuthor()">Узнать, кто автор страницы</div>
+        </div>
+            
 
 
     </main>
