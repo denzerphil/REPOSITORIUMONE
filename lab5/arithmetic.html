@@ -16,22 +16,37 @@
             let result=a+b;
             alert('Сумма ' +a+ ' и ' +b+ ' равна = ' +result);
         }
+
+        function ShowAuthor() {
+            let Author = 'Автор страницы: \nФилиппов Денис Максимович'
+            alert(Author);
+        }
+        function ShowGreets() {
+            let Greets = 'Приветствую Вас на моей странице! \n Альхамдулиллах'
+            alert(Greets);
+        }
     </script>
 
     <style>
         .message{
-            display: inline-block; height: 65px; width: 400px; border-radius: 10px ; border: 2px solid black;  margin-top: 20%;
+            display: inline-block; height: 50px; width: 400px; border-radius: 10px ; border: 2px solid black;  margin-top: 20%;
             text-align: center; font-family: arial; font-size: 17pt; color: black; justify-content: center; 
             background-color: rgb(228, 228, 228); margin: 50px; cursor: pointer;
         }
         .message:hover{
             box-shadow: 0 0 15px rgba(0, 0, 0, 0.582);
-            height: 75px; width: 410px;
+            height: 55px; width: 405px;
+        }
+        header:hover{
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.788);
+        }
+        footer:hover{
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.788);
         }
     </style>
 </head>
 <body>
-    <header>
+    <header onclick="ShowAuthor()">
         <h1>
             НГТУ, ФБ, Лабораторная работа 4
         </h1>
@@ -40,11 +55,11 @@
     <main>
 
         <div class="message" onclick="ShowSum()">Сколько будет 5154+7891?</div>
-        <div class="message">Узнать, кто автор страницы</div>
+        <div class="message" onclick="ShowAuthor()">Узнать, кто автор страницы</div>
 
 
     </main>
-    <footer>
+    <footer ondblclick="ShowGreets()">
         <p>&copy; Денис Филиппов, ФБИ-33, 2 курс, 2025</p>
     </footer>
 </body>
