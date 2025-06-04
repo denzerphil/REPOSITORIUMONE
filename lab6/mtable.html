@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Филиппов Денис. 6</title>
+    <link rel="stylesheet" href="../main.css">
+    <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon">
+    <link rel="icon" href="../favicon-16x16.png">
+    <link rel="icon" href="../favicon-32x32.png">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            
+        }
+
+        .multiplication-table {
+            margin-bottom: 20px;
+            padding: 15px;
+            background-color: #f5f5f5;
+            border-radius: 5px;
+            max-width: 642px;
+            align-items: center;
+        }
+        .controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            align-items: flex-end;
+            margin-bottom: 20px;
+        }
+        .control-group {
+            display: flex;
+            flex-direction: column;
+        }
+        label {
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input {
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        button {
+            padding: 8px 15px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .error {
+            color: red;
+            margin-top: 10px;
+        }
+    </style>
+    <script>
+        function generateTable() {
+            const tableDiv = document.getElementById("mtable");
+            const errorDiv = document.getElementById("error");
+
+            errorDiv.textContent = "";
+
+            const multiplier = parseInt(document.getElementById("multiplier").value);
+            let start = parseInt(document.getElementById("start").value);
+            let end = parseInt(document.getElementById("end").value);
+
+            if (isNaN(multiplier)) {
+                errorDiv.textContent = "Пожалуйста, введите корректное число для умножения";
+                return;
+            }
+            
+            if (isNaN(start)) {
+                errorDiv.textContent = "Пожалуйста, введите корректное начальное число";
+                return;
+            }
+            
+            if (isNaN(end)) {
+                errorDiv.textContent = "Пожалуйста, введите корректное конечное число";
+                return;
+            }
+
+            if (start > end) {
+                [start, end] = [end, start];
+                document.getElementById("start").value = start;
+                document.getElementById("end").value = end;
+            }
+            
+            let tableHTML = `<h2>Таблица умножения на ${multiplier}</h2>`;
+            
+            for (let i = start; i <= end; i++) {
+                tableHTML += `<p>${i} × ${multiplier} = ${i * multiplier}</p>`;
+            }
+            
+            tableDiv.innerHTML = tableHTML;
+        }
+        
+        window.onload = generateTable;
+    </script>
+</head>
+
+    <header>
+        <h1>НГТУ, ФБ, Лабораторная работа 6</h1>
+    </header>
+
+<body>
+    
+    <main>
+        <h1 style="text-align: center; font-size: 28pt;">Таблица умножения</h1>
+
+        
+            <div id="mtable" class="multiplication-table";></div>
+            
+            <div class="controls">
+                <div class="control-group">
+                    <label for="multiplier">Умножить на:</label>
+                    <input type="number" id="multiplier" value="7" min="1">
+                </div>
+                
+                <div class="control-group">
+                    <label for="start">Начать с:</label>
+                    <input type="number" id="start" value="1" min="1">
+                </div>
+                
+                <div class="control-group">
+                    <label for="end">Закончить на:</label>
+                    <input type="number" id="end" value="10" min="1">
+                </div>
+                
+                <button onclick="generateTable()">Таблица</button>
+            </div>
+            
+            <div id="error" class="error"></div>
+
+            
+
+    </main>
+    
+</body>
+    
+<footer>
+    <p>&copy; Денис Филиппов, ФБИ-33, 2 курс, 2025</p>
+</footer>
+
+</html>
