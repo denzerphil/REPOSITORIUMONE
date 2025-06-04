@@ -91,9 +91,22 @@
             let Greets = 'Приветствую Вас на моей странице! \n Альхамдулиллах'
             alert(Greets);
         }
+        function changeOutput(buttonNum, backColor, textColor, borderRad) {
+            let output = document.getElementById('output');
+            output.innerHTML = 'Нажата кнопка ' +buttonNum;
+            output.style.backgroundColor = backColor;
+            output.style.color = textColor;
+            output.style.borderRadius = borderRad;
+
+        }
     </script>
 
     <style>
+        .output {
+            background-color: rgb(94, 94, 94);
+
+   
+        }
         .message{
             display: grid; height: 60px; width: 400px; border-radius: 10px ; border: 0px solid black;  margin-top: 20%;
             text-align: center; font-family: arial; font-size: 16pt; color: black; justify-content: center; font-weight: 500;
@@ -107,13 +120,13 @@
             font-family: arial; font-size: 20pt; font-weight: 800;
         }
         .container{
-            margin-left: auto; margin-right: auto;
-            border: 0px solid black; height: 200px; width: 1000px; margin: 70px; border-radius: 10px;  
+            margin-left: auto; margin-right: auto; 
+            border: 0px solid black; height: 200px; width: 500px; margin: 60px; border-radius: 10px;  
             box-shadow: 0 0 15px rgba(0, 0, 0, 0.288); background: linear-gradient(to bottom, rgba(255, 255, 255, 0.301), rgba(128, 128, 128, 0.363),rgba(48, 48, 48, 0.63));
             text-align: center; align-content: center; color: black;
         }
         .container2{
-            margin-left: auto; margin-right: auto; margin-top: 50px;
+            margin-left: auto; margin-right: auto; margin-top: 40px;
             border: 0px solid black; height: 480px; width: 500px; border-radius: 10px;  
             box-shadow: 0 0 40px rgba(0, 0, 0, 0.63); background-color: rgb(156, 156, 156);
             text-align: center; align-content: center; 
@@ -121,32 +134,47 @@
 
     </style>
 </head>
+
 <body>
+
+
     <header onclick="ShowAuthor()">
-        <h1>
-            НГТУ, ФБ, Лабораторная работа 4
-        </h1>
-        
+        <h1>НГТУ, ФБ, Лабораторная работа 5</h1>
     </header>
+
     <main>
-        <div class='container'; style="margin: auto; margin-top: 3%;">
-            <p style="margin: 1px; font-family: arial; font-size: 20pt; font-weight: 600;">Панель ввода чисел</p><br>
-            <label>Первое число: <input type="number" value="" id="numberA"></label><br>
-            <label>Второе число: <input type="number" value="" id="numberB"></label><br>  
+
+        <div class="output">
+                <input type="button" value="Кнопка 1" onclick="changeOutput(1, 'red', 'yellow', '0')">
+                <input type="button" value="Кнопка 2" onclick="changeOutput(2, 'black', 'lime', '10%')">
+                <input type="button" value="Кнопка 3" onclick="changeOutput(3, 'grey', 'orange', '3px')">
+                <input type="button" value="Кнопка 4" onclick="changeOutput(4, 'pink', 'white', '100px')">
+                <div id="output"></div>
         </div>
         
-        <div class="container2">
-            <div class="message" onclick="ShowSum()">Сумма чисел</div>
-            <div class="message" onclick="ShowDiv()">Частное</div>
-            <div class="message" onclick="ShowStep()">Возведение в степень (a^b)</div>
-            <div class="message" onclick="ShowAuthor()">Узнать, кто автор страницы</div>
+
+        <div>
+            <div class='container'; style="margin-left: 10%; margin-top: 2%;">
+                <p style="margin: 1px; font-family: arial; font-size: 20pt; font-weight: 600;">Панель ввода чисел</p><br>
+                <label>Первое число: <input type="number" value="" id="numberA"></label><br>
+                <label>Второе число: <input type="number" value="" id="numberB"></label><br>  
+            </div>
+            
+            <div class="container2"; style="margin-left: 10%;">
+                <div class="message" onclick="ShowSum()">Сумма чисел</div>
+                <div class="message" onclick="ShowDiv()">Частное</div>
+                <div class="message" onclick="ShowStep()">Возведение в степень (a^b)</div>
+                <div class="message" onclick="ShowAuthor()">Узнать, кто автор страницы</div>
+            </div>
         </div>
             
 
 
     </main>
+
     <footer ondblclick="ShowGreets()">
         <p>&copy; Денис Филиппов, ФБИ-33, 2 курс, 2025</p>
     </footer>
+
 </body>
 </html>
