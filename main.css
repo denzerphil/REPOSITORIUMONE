@@ -1,38 +1,40 @@
 body {
     background-color: rgb(221, 221, 221);
-    color: rgba(240, 104, 14, 0.877);
+    color: rgba(39, 39, 39, 0.877);
     font-family: Arial;
     margin: 0px;
     padding: 0;
 }
 
 a:visited{
-    color: blueviolet;
+    color: rgb(170, 79, 255);
     opacity: 0.1;
 }
 
 a:link{
-    color: rgb(53, 53, 53);
-    opacity: 0.5;
+    color: rgb(255, 255, 255);
+    opacity: 0.8;
 }
 
 li{
-    font-size: 30px;
+    font-size: 22px;
 }
 
+
 a {
-    font-size: 22px;
+    font-size: 20pt;
     color: green;
     text-decoration: none;
-    transition: 1s 2s;
+    transition: 1s 1s;
     text-align: center;
     font-family: impact;
 }
 
+
 a:hover {
     color: red;
     text-decoration: line-through;
-    transition: 0.3s;
+    transition: 0.2s;
 }
 
 a:active {
@@ -41,16 +43,13 @@ a:active {
 }
 
 div.menu {
-    border: 7px solid rgb(238, 87, 0);
-    border-radius: 5px;
-    width: 380px;
-    margin: 0 auto;
+    height: 410px;
+    width: 520px;
+    border: 1px solid rgb(150, 150, 150);
+    opacity: 0.85;
+    box-shadow: 0 0 30px rgb(82, 73, 73);
 }
 
-div.menu:hover{
-    background-color: rgb(131, 131, 131);
-    box-shadow: 0 0 15px rgb(65, 65, 65);
-}
 
 footer {
     background-color: #000000;
