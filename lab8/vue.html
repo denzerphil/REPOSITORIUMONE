@@ -24,8 +24,8 @@
         <h1>{{ message }}</h1>
         <span :title="messageRus">{{ message }}</span>
         <p>Счетчик: {{ counter }}</p>
-        <button @click="incCounter" v-if="counter">++</button>
-        <button @click="decCounter" v-if="counter">--</button>
+        <button @click="incCounter" v-if="counter < 10">++</button>
+        <button @click="decCounter" v-if="counter > 0">--</button>
     </div>
 
 </main>
