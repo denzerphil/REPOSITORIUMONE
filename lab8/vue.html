@@ -30,6 +30,12 @@
         <div>Имя: {{ user.name }}</div>
         <div>Возраст: {{ user.age }}</div>
         <div>Телефон: {{ user.tel }}</div>
+        <h2>Цветы</h2>
+        <ul>
+            <li v-for="(flower, id) in flowers">
+                {{ flower }} <button @click="edit(id, flower)">?</button>
+            </li>
+        </ul>
     </div>
 
 </main>
@@ -43,8 +49,10 @@
                     user: {
                         name: 'Вася',
                         age: '18',
-                        tel: '222-33-44'
-                    }
+                        tel: '222-33-44',
+                    },
+                    flowers: ['роза', 'тюльпан', 'маргаритка', 'георгин', 'одуванчик']
+                    
                 }
             },
             methods: {
@@ -54,6 +62,13 @@
                 decCounter() {
                     this.counter--;
                 },
+                edit(id, flower) {
+                let newName = prompt('Введите имя цветка:', flower);
+                this.flowers[id] = 'сохранение...';
+                setTimeout(() => {
+                    this.flowers[id] = newName;
+                }, 3000);
+            }
             }
         }).mount('#app');
 
