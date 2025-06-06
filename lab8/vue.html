@@ -22,7 +22,7 @@
 
 <main>
 
-    <div id="app">
+    <div id="app"; style="margin-bottom: 35px;">
         <h1>{{ message }}</h1>
         <span :title="messageRus">{{ message }}</span>
         <p>Счетчик: {{ counter }}</p>
@@ -52,6 +52,25 @@
         <button @click="sum" class="btn btn-primary">=</button>
         <span class="badge text-bg-primary fs-5 ms-2">{{ result }}</span>
     </div>
+
+    <h2>Цветы</h2>
+    <table class="table table-danger">
+        <thead>
+            <tr>
+                <th>Название</th>
+                <th>Редактировать</th>
+            </tr>
+        </thead>
+        <tr v-for="(flower, id) in flowers">
+            <td>{{ flower }}</td>
+            <td>
+                <button @click="edit(id, flower)" class="btn btn-primary">
+                    <i class="bi bi-pencil-fill"></i>
+                </button>
+            </td>
+        </tr>
+    </table>
+
     </div>
 
 </main>
