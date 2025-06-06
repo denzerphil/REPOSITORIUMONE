@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Филиппов Денис. 6</title>
+    <link rel="stylesheet" href="../main.css">
+    <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon">
+    <link rel="icon" href="../favicon-16x16.png">
+    <link rel="icon" href="../favicon-32x32.png">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+        header, footer {
+            background-color: #000000;
+            padding: 1px;
+            text-align: center;
+            transition: color 0.5s ease;
+        }
+        main {
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .date-container {
+            margin-bottom: 20px;
+            padding: 15px;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .locale-name {
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #2c3e50;
+        }
+        .buttons {
+            margin: 20px 0;
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+        button {
+            padding: 8px 16px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #2980b9;
+        }
+        button:disabled {
+            background-color: #95a5a6;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>НГТУ, ФБ, Лабораторная работа 6</h1>
+</header>
+    
+    <main>
+        <div class="buttons">
+            <button id="start-color">Старт (цвет)</button>
+            <button id="stop-color" disabled>Стоп (цвет)</button>
+            <button id="start-time">Обновлять время</button>
+            <button id="stop-time" disabled>Остановить обновление</button>
+        </div>
+        
+        <div id="current-date" class="date-container"></div>
+        
+        <div class="date-container">
+            <div class="locale-name">Дата и время для Русской локали</div>
+            <div id="date-ru"></div>
+        </div>
+        
+        <div class="date-container">
+            <div class="locale-name">Дата и время для Английской локали</div>
+            <div id="date-en"></div>
+        </div>
+        
+        <div class="date-container">
+            <div class="locale-name">Дата и время для Немецкой локали</div>
+            <div id="date-de"></div>
+        </div>
+        
+        <div class="date-container">
+            <div class="locale-name">Дата и время для Японской локали</div>
+            <div id="date-ja"></div>
+        </div>
+        
+        <div class="date-container">
+            <div class="locale-name">Дата и время для Французской локали</div>
+            <div id="date-fr"></div>
+        </div>
+    </main>
+
+    <script>
+
+        let colorInterval;
+        let timeInterval;
+
+        function showDate() {
+            const now = new Date();
+
+            document.getElementById('current-date').textContent = 
+                `Текущая дата и время: ${now.toLocaleString('ru-RU')}`;
+            
+            document.getElementById('date-ru').textContent = 
+                now.toLocaleString('ru-RU', { 
+                    weekday: 'long', 
+                    year: 'numeric', 
+                    month: 'long', 
+                    day: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    second: '2-digit'
+                });
+                
+            document.getElementById('date-en').textContent = 
+                now.toLocaleString('en-US', { 
+                    weekday: 'long', 
+                    year: 'numeric', 
+                    month: 'long', 
+                    day: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    second: '2-digit'
+                });
+                
+            document.getElementById('date-de').textContent = 
+                now.toLocaleString('de-DE', { 
+                    weekday: 'long', 
+                    year: 'numeric', 
+                    month: 'long', 
+                    day: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    second: '2-digit'
+                });
+                
+            document.getElementById('date-ja').textContent = 
+                now.toLocaleString('ja-JP', { 
+                    year: 'numeric', 
+                    month: 'long', 
+                    day: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    second: '2-digit',
+                    era: 'long'
+                });
+                
+            document.getElementById('date-fr').textContent = 
+                now.toLocaleString('fr-FR', { 
+                    weekday: 'long', 
+                    year: 'numeric', 
+                    month: 'long', 
+                    day: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    second: '2-digit'
+                });
+        }
+        
+        function changeColor() {
+            const header = document.getElementsByTagName('header')[0];
+            const r = Math.floor(Math.random() * 256);
+            const g = Math.floor(Math.random() * 256);
+            const b = Math.floor(Math.random() * 256);
+            header.style.color = `rgb(${r}, ${g}, ${b})`;
+        }
+        
+        document.getElementById('start-color').addEventListener('click', function() {
+            changeColor(); 
+            colorInterval = setInterval(changeColor, 1000); 
+            
+            this.disabled = true;
+            document.getElementById('stop-color').disabled = false;
+        });
+        
+        document.getElementById('stop-color').addEventListener('click', function() {
+            clearInterval(colorInterval);
+            
+            this.disabled = true;
+            document.getElementById('start-color').disabled = false;
+        });
+        
+        document.getElementById('start-time').addEventListener('click', function() {
+            showDate(); 
+            timeInterval = setInterval(showDate, 1000); 
+
+            this.disabled = true;
+            document.getElementById('stop-time').disabled = false;
+        });
+        
+        document.getElementById('stop-time').addEventListener('click', function() {
+            clearInterval(timeInterval);
+ 
+            this.disabled = true;
+            document.getElementById('start-time').disabled = false;
+        });
+        
+        window.addEventListener('load', showDate);
+    </script>
+
+<footer>
+    <p>&copy; Денис Филиппов, ФБИ-33, 2 курс, 2025</p>
+</footer>
+
+</body>
+
+
+</html>
