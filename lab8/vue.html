@@ -22,7 +22,8 @@
 
 <main>
 
-    <div id="app"; style="margin-bottom: 35px;">
+    <div id="app"; style="margin: auto; margin-bottom: 100px;">
+
         <h1>{{ message }}</h1>
         <span :title="messageRus">{{ message }}</span>
         <p>Счетчик: {{ counter }}</p>
@@ -38,39 +39,54 @@
                 {{ flower }} <button @click="edit(id, flower)">?</button>
             </li>
         </ul>
-        <h2>Калькулятор</h2>
-        <input type="number" v-model="a">
-        +
-        <input type="number" v-model="b">
-        <button @click="sum">=</button>
-        <span>{{ result }}</span>
-        <h2>Калькулятор</h2>
-    <div class="input-group mb-3">
-        <input type="number" v-model="a" class="form-control">
-        <span class="input-group-text">+</span>
-        <input type="number" v-model="b" class="form-control">
-        <button @click="sum" class="btn btn-primary">=</button>
-        <span class="badge text-bg-primary fs-5 ms-2">{{ result }}</span>
-    </div>
 
-    <h2>Цветы</h2>
-    <table class="table table-danger">
-        <thead>
-            <tr>
-                <th>Название</th>
-                <th>Редактировать</th>
+        <h2>Калькулятор</h2>
+        <div class="input-group mb-3">
+            <input type="number" v-model="a" class="form-control">
+            <span class="input-group-text">+</span>
+            <input type="number" v-model="b" class="form-control">
+            <button @click="sum" class="btn btn-primary">=</button>
+            <span class="badge text-bg-primary fs-5 ms-2">{{ result }}</span>
+        </div>
+        <br>
+        <h2>Цветы</h2>
+        <table class="table table-danger">
+            <thead>
+                <tr>
+                    <th>Название</th>
+                    <th>Редактировать</th>
+                </tr>
+            </thead>
+            <tr v-for="(flower, id) in flowers">
+                <td>{{ flower }}</td>
+                <td>
+                    <button @click="edit(id, flower)" class="btn btn-primary">
+                        <i class="bi bi-pencil-fill"></i>
+                    </button>
+                </td>
             </tr>
-        </thead>
-        <tr v-for="(flower, id) in flowers">
-            <td>{{ flower }}</td>
-            <td>
-                <button @click="edit(id, flower)" class="btn btn-primary">
+        </table>
+        <br>
+        <h2>Цветы</h2>
+        <ul class="list-group">
+            <li v-for="(flower, id) in flowers" class="list-group-item">
+                {{ flower }} <button @click="edit(id, flower)" class="btn btn-primary">
                     <i class="bi bi-pencil-fill"></i>
                 </button>
-            </td>
-        </tr>
-    </table>
-
+            </li>
+        </ul>
+        <br>
+        <div class="card" style="width: 18rem;">
+            <div class="card-body">
+                <h5 class="card-title">Цветы</h5>
+                <ul class="list-group">
+                    <li v-for="(flower, id) in flowers" class="list-group-item">
+                        {{ flower }}
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <br>
     </div>
 
 </main>
