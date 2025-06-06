@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Филиппов Денис. 7</title>
+    <link rel="stylesheet" href="../main.css">
+    <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon">
+    <link rel="icon" href="../favicon-16x16.png">
+    <link rel="icon" href="../favicon-32x32.png">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+  
+        body {
+            font-family: 'arial';
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            color: var(--dark);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .subtitle {
+            color: var(--accent);
+            font-weight: 400;
+        }
+        
+        .weather-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+        }
+        
+        .current-weather {
+            background: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .current-main {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        
+        .current-temp {
+            font-size: 3rem;
+            font-weight: 600;
+            color: var(--primary);
+            margin-right: 1rem;
+        }
+        
+        .current-details {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            width: 100%;
+        }
+        
+        .detail-card {
+            background: var(--light);
+            padding: 1rem;
+            border-radius: 8px;
+            text-align: center;
+        }
+        
+        .detail-value {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--secondary);
+        }
+        
+        .detail-label {
+            font-size: 0.9rem;
+            color: #6c757d;
+        }
+        
+        .chart-container {
+            background: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        canvas {
+            width: 100% !important;
+            height: 400px !important;
+        }
+
+        
+        .btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-top: 1rem;
+        }
+        
+        .btn:hover {
+            background: var(--secondary);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+        }
+        
+        .location {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+        }
+        
+        .location-icon {
+            margin-right: 0.5rem;
+            color: var(--accent);
+        }
+        
+        @media (min-width: 768px) {
+            .weather-container {
+                grid-template-columns: 1fr 2fr;
+            }
+            
+            .current-weather {
+                grid-row: span 2;
+            }
+        }
+</style>
+</head>
+
+<body>
+
+<header>
+        <h1>НГТУ, ФБ, Лабораторная работа 7</h1>
+</header>
+
+<main>
+
+   <div class="container">
+        <header>
+            <h1>Интерактивный прогноз погоды</h1>
+            <p class="subtitle">Актуальные данные и прогноз на 24 часа для Новосибирска</p>
+            <div class="location">
+                <svg class="location-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 2C8.13 2 5 5.13 5 9C5 14.25 12 22 12 22C12 22 19 14.25 19 9C19 5.13 15.87 2 12 2ZM12 11.5C10.62 11.5 9.5 10.38 9.5 9C9.5 7.62 10.62 6.5 12 6.5C13.38 6.5 14.5 7.62 14.5 9C14.5 10.38 13.38 11.5 12 11.5Z" fill="currentColor"/>
+                </svg>
+                <span>Новосибирск, Россия</span>
+            </div>
+            <button class="btn" id="refresh-btn">Обновить данные</button>
+        </header>
+        
+        <div class="weather-container">
+            <div class="current-weather">
+                <h2>Текущая погода</h2>
+                <div class="current-main">
+                    <span class="current-temp" id="current-temp">--°</span>
+                </div>
+                <p id="weather-description">Загрузка данных...</p>
+                
+                <div class="current-details">
+                    <div class="detail-card">
+                        <div class="detail-value" id="humidity">--%</div>
+                        <div class="detail-label">Влажность</div>
+                    </div>
+                    <div class="detail-card">
+                        <div class="detail-value" id="pressure">-- hPa</div>
+                        <div class="detail-label">Давление</div>
+                    </div>
+                    <div class="detail-card">
+                        <div class="detail-value" id="wind-speed">-- км/ч</div>
+                        <div class="detail-label">Ветер</div>
+                    </div>
+                    <div class="detail-card">
+                        <div class="detail-value" id="feels-like">--°</div>
+                        <div class="detail-label">Ощущается</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="chart-container">
+                <h2>Прогноз температуры на 24 часа</h2>
+                <canvas id="temp-chart"></canvas>
+            </div>
+            
+            <div class="chart-container">
+                <h2>Прогноз влажности и давления</h2>
+                <canvas id="humidity-chart"></canvas>
+            </div>
+        </div>
+        
+        <footer>
+            Данные предоставлены API open-meteo.com | Обновлено: <span id="update-time">--:--</span>
+        </footer>
+    </div>
+
+</main>
+  
+<footer>
+        <p>&copy; Денис Филиппов, ФБИ-33, 2 курс, 2025</p>
+</footer>
+
+<script>
+    const tempCtx = document.getElementById('temp-chart').getContext('2d');
+        const humidityCtx = document.getElementById('humidity-chart').getContext('2d');
+        
+        let tempChart = new Chart(tempCtx, {
+            type: 'bar',
+            data: {
+                labels: [],
+                datasets: [
+                    {
+                        label: 'Температура (°C)',
+                        data: [],
+                        backgroundColor: 'rgba(67, 97, 238, 0.7)',
+                        borderColor: 'rgba(67, 97, 238, 1)',
+                        borderWidth: 1,
+                        yAxisID: 'y'
+                    },
+                    {
+                        label: 'Ощущается как (°C)',
+                        data: [],
+                        backgroundColor: 'rgba(72, 149, 239, 0.7)',
+                        borderColor: 'rgba(72, 149, 239, 1)',
+                        borderWidth: 1,
+                        yAxisID: 'y'
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return `${context.dataset.label}: ${context.raw}°C`;
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: false,
+                        title: {
+                            display: true,
+                            text: 'Температура (°C)'
+                        }
+                    }
+                }
+            }
+        });
+        
+        let humidityChart = new Chart(humidityCtx, {
+            type: 'line',
+            data: {
+                labels: [],
+                datasets: [
+                    {
+                        label: 'Влажность (%)',
+                        data: [],
+                        backgroundColor: 'rgba(76, 201, 240, 0.2)',
+                        borderColor: 'rgba(76, 201, 240, 1)',
+                        borderWidth: 2,
+                        tension: 0.4,
+                        yAxisID: 'y'
+                    },
+                    {
+                        label: 'Давление (hPa)',
+                        data: [],
+                        backgroundColor: 'rgba(63, 55, 201, 0.2)',
+                        borderColor: 'rgba(63, 55, 201, 1)',
+                        borderWidth: 2,
+                        tension: 0.4,
+                        yAxisID: 'y1'
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                if (context.datasetIndex === 0) {
+                                    return `Влажность: ${context.raw}%`;
+                                } else {
+                                    return `Давление: ${context.raw} hPa`;
+                                }
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        type: 'linear',
+                        display: true,
+                        position: 'left',
+                        title: {
+                            display: true,
+                            text: 'Влажность (%)'
+                        }
+                    },
+                    y1: {
+                        type: 'linear',
+                        display: true,
+                        position: 'right',
+                        title: {
+                            display: true,
+                            text: 'Давление (hPa)'
+                        },
+                        grid: {
+                            drawOnChartArea: false,
+                        }
+                    }
+                }
+            }
+        });
+
+        async function fetchWeatherData() {
+            try {
+                const latitude = 55.0415;
+                const longitude = 82.9346;
+
+                const response = await fetch(
+                    `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}` +
+                    `&hourly=temperature_2m,apparent_temperature,relative_humidity_2m,surface_pressure` +
+                    `&current_weather=true&timezone=Asia%2FBangkok`
+                );
+                
+                if (!response.ok) {
+                    throw new Error('Ошибка при получении данных');
+                }
+                
+                const data = await response.json();
+                return data;
+            } catch (error) {
+                console.error('Ошибка:', error);
+                return null;
+            }
+        }
+
+        function displayWeatherData(data) {
+            if (!data) {
+                alert('Не удалось получить данные о погоде');
+                return;
+            }
+            
+
+            const currentWeather = data.current_weather;
+            document.getElementById('current-temp').textContent = `${currentWeather.temperature}°`;
+
+            const hourly = data.hourly;
+            const now = new Date();
+            const currentHour = now.getHours();
+    
+            const hoursToShow = 24;
+            const startIndex = currentHour;
+            const endIndex = startIndex + hoursToShow;
+            
+            const timeLabels = hourly.time.slice(startIndex, endIndex).map(time => {
+                const date = new Date(time);
+                return `${date.getHours()}:00`;
+            });
+            
+            const temperatures = hourly.temperature_2m.slice(startIndex, endIndex);
+            const apparentTemps = hourly.apparent_temperature.slice(startIndex, endIndex);
+            const humidities = hourly.relative_humidity_2m.slice(startIndex, endIndex);
+            const pressures = hourly.surface_pressure.slice(startIndex, endIndex);
+
+            tempChart.data.labels = timeLabels;
+            tempChart.data.datasets[0].data = temperatures;
+            tempChart.data.datasets[1].data = apparentTemps;
+            tempChart.update();
+            
+            humidityChart.data.labels = timeLabels;
+            humidityChart.data.datasets[0].data = humidities;
+            humidityChart.data.datasets[1].data = pressures;
+            humidityChart.update();
+
+            document.getElementById('humidity').textContent = `${hourly.relative_humidity_2m[startIndex]}%`;
+            document.getElementById('pressure').textContent = `${hourly.surface_pressure[startIndex]} hPa`;
+            document.getElementById('feels-like').textContent = `${hourly.apparent_temperature[startIndex]}°`;
+            document.getElementById('wind-speed').textContent = `${currentWeather.windspeed} км/ч`;
+
+            const weatherCode = currentWeather.weathercode;
+            let weatherDescription = '';
+            let iconUrl = '';
+            
+            switch(weatherCode) {
+                case 0: 
+                    weatherDescription = 'Ясно';
+                    iconUrl = 'https://open-meteo.com/images/weather/clear.svg';
+                    break;
+                case 1: case 2: case 3:
+                    weatherDescription = 'Переменная облачность';
+                    iconUrl = 'https://open-meteo.com/images/weather/partly-cloudy.svg';
+                    break;
+                case 45: case 48:
+                    weatherDescription = 'Туман';
+                    iconUrl = 'https://open-meteo.com/images/weather/fog.svg';
+                    break;
+                case 51: case 53: case 55:
+                    weatherDescription = 'Морось';
+                    iconUrl = 'https://open-meteo.com/images/weather/drizzle.svg';
+                    break;
+                case 56: case 57:
+                    weatherDescription = 'Ледяная морось';
+                    iconUrl = 'https://open-meteo.com/images/weather/drizzle.svg';
+                    break;
+                case 61: case 63: case 65:
+                    weatherDescription = 'Дождь';
+                    iconUrl = 'https://open-meteo.com/images/weather/rain.svg';
+                    break;
+                case 66: case 67:
+                    weatherDescription = 'Ледяной дождь';
+                    iconUrl = 'https://open-meteo.com/images/weather/rain.svg';
+                    break;
+                case 71: case 73: case 75:
+                    weatherDescription = 'Снег';
+                    iconUrl = 'https://open-meteo.com/images/weather/snow.svg';
+                    break;
+                case 77:
+                    weatherDescription = 'Снежные зерна';
+                    iconUrl = 'https://open-meteo.com/images/weather/snow.svg';
+                    break;
+                case 80: case 81: case 82:
+                    weatherDescription = 'Ливень';
+                    iconUrl = 'https://open-meteo.com/images/weather/rain.svg';
+                    break;
+                case 85: case 86:
+                    weatherDescription = 'Снегопад';
+                    iconUrl = 'https://open-meteo.com/images/weather/snow.svg';
+                    break;
+                case 95: case 96: case 99:
+                    weatherDescription = 'Гроза';
+                    iconUrl = 'https://open-meteo.com/images/weather/thunderstorm.svg';
+                    break;
+                default:
+                    weatherDescription = 'Неизвестно';
+                    iconUrl = 'https://open-meteo.com/images/weather/unknown.svg';
+            }
+            
+            document.getElementById('weather-description').textContent = weatherDescription;
+            document.getElementById('weather-icon').src = iconUrl;
+
+            const updateTime = new Date().toLocaleTimeString();
+            document.getElementById('update-time').textContent = updateTime;
+        }
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            const data = await fetchWeatherData();
+            displayWeatherData(data);
+        });
+
+        document.getElementById('refresh-btn').addEventListener('click', async () => {
+            const data = await fetchWeatherData();
+            displayWeatherData(data);
+        });
+</script>
+
+</body>
+</html>
