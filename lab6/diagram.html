@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Филиппов Денис. 6</title>
+    <link rel="stylesheet" href="../main.css">
+    <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon">
+    <link rel="icon" href="../favicon-16x16.png">
+    <link rel="icon" href="../favicon-32x32.png">
+    <style>
+        #diag {
+            display: flex;
+            align-items: flex-end;
+            height: 400px;
+            gap: 10px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            margin-top: 20px;
+        }
+        
+        .bar {
+            background-color: #4CAF50;
+            width: 40px;
+            transition: height 0.5s ease;
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            color: white;
+            font-weight: bold;
+        }
+    </style>
+    <script>
+        function showDiagram() {
+            const bars = document.querySelectorAll('.bar');
+            bars.forEach(bar => {
+                const randomHeight = Math.floor(Math.random() * 300) + 50;
+                bar.style.height = `${randomHeight}px`;
+                bar.textContent = randomHeight;
+            });
+        }
+
+        window.addEventListener('DOMContentLoaded', showDiagram);
+    </script>
+
+</head>
+
+    <header>
+        <h1>НГТУ, ФБ, Лабораторная работа 6</h1>
+    </header>
+
+<body> 
+    <main>
+        <div id="diag">
+            <div class="bar"></div><br>
+            <div class="bar"></div><br>
+            <div class="bar"></div><br>
+            <div class="bar"></div><br>
+            <div class="bar"></div><br>
+            <div class="bar"></div><br>
+            <div class="bar"></div><br>
+            <div class="bar"></div><br>
+            <div class="bar"></div><br>
+            <div class="bar"></div><br>
+        </div>
+
+            
+
+    </main>
+</body>
+    
+<footer>
+    <p>&copy; Денис Филиппов, ФБИ-33, 2 курс, 2025</p>
+</footer>
+
+</html>
