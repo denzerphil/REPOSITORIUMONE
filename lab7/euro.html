@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Филиппов Денис. 7</title>
+    <link rel="stylesheet" href="../main.css">
+    <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon">
+    <link rel="icon" href="../favicon-16x16.png">
+    <link rel="icon" href="../favicon-32x32.png">
+<script>
+function getEuroExchangeRate() {
+        const url = 'https://www.cbr-xml-daily.ru/daily_json.js';
+        
+        fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                const currentRate = data.Valute.EUR.Value;
+                const previousRate = data.Valute.EUR.Previous;
+                const diff = currentRate - previousRate;
+                const date = new Date(data.Date).toLocaleDateString();
+                
+                document.getElementById('result').innerHTML = `
+                    <div class="exchange-rate">
+                        <p>Дата: ${date}</p>
+                        <p>Текущий курс: ${currentRate.toFixed(2)} руб.</p>
+                        <p>Предыдущий курс: ${previousRate.toFixed(2)} руб.</p>
+                        <p>Изменение: <span style="color: ${diff >= 0 ? 'green' : 'red'}">
+                            ${diff.toFixed(2)} руб. (${diff >= 0 ? '↑' : '↓'})
+                        </span></p>
+                    </div>
+                `;
+                document.querySelector('button').style.display = 'none';
+            })
+            .catch(error => console.error('Ошибка:', error));
+    }
+</script> 
+</head>
+
+<body>
+
+<header>
+        <h1>НГТУ, ФБ, Лабораторная работа 7</h1>
+</header>
+
+<main>
+
+    <button onclick="getEuroExchangeRate()">Получить курс евро</button>
+    <div id="result"></div> <br>
+    <a href="https://www.cbr-xml-daily.ru/"; style="border: 1px solid grey;">API для курсов ЦБ РФ</a>
+
+</main>
+  
+<footer>
+        <p>&copy; Денис Филиппов, ФБИ-33, 2 курс, 2025</p>
+</footer>
+
+</body>
+</html>
