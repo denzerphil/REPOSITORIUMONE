@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Филиппов Денис. 7</title>
+    <link rel="stylesheet" href="../main.css">
+    <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon">
+    <link rel="icon" href="../favicon-16x16.png">
+    <link rel="icon" href="../favicon-32x32.png">
+    <script>
+    const dates = ['27.05.2025', '28.05.2025', '29.05.2025', '30.05.2025', '01.06.2025', '02.06.2025', '03.06.2025', '04.06.2025', '05.06.2025', '06.06.2025'];
+    const prices = [231.6, 230.6, 246.1, 248.2, 250.7, 249, 243.4, 238.7, 235.9, 239.9];
+    
+    function showStocks() {
+        let table = document.getElementById('stocks-table');
+        let sum = 0;
+        let min = prices[0];
+        let max = prices[0];
+        
+        for (let i = 0; i < prices.length; i++) {
+            let tr = document.createElement('tr');
+            
+            let tdDate = document.createElement('td');
+            tdDate.textContent = dates[i];
+            tr.appendChild(tdDate);
+            
+            let tdPrice = document.createElement('td');
+            tdPrice.textContent = prices[i];
+            tr.appendChild(tdPrice);
+            
+            let tdDiff = document.createElement('td');
+            if (i === 0) {
+                tdDiff.textContent = '—';
+            } else {
+                let diff = prices[i] - prices[i - 1];
+                tdDiff.textContent = diff;
+                tdDiff.style.color = diff > 0 ? 'green' : diff < 0 ? 'red' : 'black';
+            }
+            tr.appendChild(tdDiff);
+            
+            table.appendChild(tr);
+            sum += prices[i];
+            if (prices[i] < min) min = prices[i];
+            if (prices[i] > max) max = prices[i];
+        }
+        
+        let avg = sum / prices.length;
+        document.getElementById('stats').innerHTML = `
+            <p>Среднее значение: ${avg.toFixed(2)} руб</p>
+            <p>Минимальное значение: ${min} руб</p>
+            <p>Максимальное значение: ${max} руб</p>
+        `;
+        document.querySelector('button').style.display = 'none';
+    }
+    </script>
+</head>
+<body>
+
+<header>
+        <h1>НГТУ, ФБ, Лабораторная работа 7</h1>
+</header>
+
+<main>
+
+<button onclick="showStocks()">Курс акций СПБ биржи</button>
+    <table border="1" id="stocks-table">
+        <tr>
+            <th>Дата</th>
+            <th>Цена, руб</th>
+            <th>Изменение</th>
+        </tr>
+    </table>
+    <div id="stats"></div>
+
+</main>  
+
+<footer>
+        <p>&copy; Денис Филиппов, ФБИ-33, 2 курс, 2025</p>
+</footer>
+
+</body>
+</html>
+
+
