@@ -23,6 +23,9 @@
     <div id="app">
         <h1>{{ message }}</h1>
         <span :title="messageRus">{{ message }}</span>
+        <p>Счетчик: {{ counter }}</p>
+        <button @click="incCounter" v-if="counter">++</button>
+        <button @click="decCounter" v-if="counter">--</button>
     </div>
 
 </main>
@@ -32,10 +35,21 @@
             data() {
                 return {
                     message: 'Hello!',
-                    messageRus: 'Привет!'
+                    messageRus: 'Привет!',
+                    counter: 1,
                 }
-            }
-        }).mount('#app');
+            },
+        methods: {
+            incCounter() {
+                this.counter++;
+            },
+            decCounter() {
+                this.counter--;
+            },
+        }
+    }).mount('#app');
+
+
     </script>
 
   
