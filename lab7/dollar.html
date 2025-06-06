@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Филиппов Денис. 6</title>
+    <link rel="stylesheet" href="../main.css">
+    <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon">
+    <link rel="icon" href="../favicon-16x16.png">
+    <link rel="icon" href="../favicon-32x32.png">
+    <script>
+    const exchange = [79.6588, 78.5025, 78.8549, 79.1285, 78.6171, 78.4970, 79.6037, 79.6176, 79.6588, 79.7108];
+    
+    function showExchange() {
+        let table = document.getElementById('dollar-table');
+        let sum = 0;
+        
+        for (let i = 0; i < exchange.length; i++) {
+            let tr = document.createElement('tr');
+            let td = document.createElement('td');
+            td.textContent = exchange[i];
+            tr.appendChild(td);
+            table.appendChild(tr);
+            sum += exchange[i];
+        }
+        
+        let avg = sum / exchange.length;
+        document.getElementById('detail').textContent = `Средний курс: ${avg.toFixed(2)} руб.`;
+        document.querySelector('button').style.display = 'none';
+    }
+</script>
+</head>
+<body>
+
+<header>
+        <h1>НГТУ, ФБ, Лабораторная работа 6</h1>
+</header>
+
+  <main>
+    <button onclick="showExchange()">Курс доллара</button>
+    <table border="1" id="dollar-table"></table>
+    <div id="detail"></div>
+</main>  
+
+<footer>
+        <p>&copy; Денис Филиппов, ФБИ-33, 2 курс, 2025</p>
+</footer>
+
+</body>
+</html>
+
+
