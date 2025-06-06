@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Филиппов Денис. 7</title>
+    <link rel="stylesheet" href="../main.css">
+    <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon">
+    <link rel="icon" href="../favicon-16x16.png">
+    <link rel="icon" href="../favicon-32x32.png">
+    <script>
+function getWeather() {
+        const url = 'https://api.open-meteo.com/v1/forecast?latitude=55.0415&longitude=82.9346&hourly=temperature_2m&timezone=Asia%2FBangkok';
+        
+        fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                const times = data.hourly.time;
+                const temps = data.hourly.temperature_2m;
+                
+                let morningTemp = temps[8]; // 8:00
+                let noonTemp = temps[12];   // 12:00
+                let eveningTemp = temps[20]; // 20:00
+                
+                document.getElementById('weather-result').innerHTML = `
+                    <div class="weather-info">
+                        <h3>Прогноз погоды в Новосибирске</h3>
+                        <p>Утро (8:00): ${morningTemp}°C</p>
+                        <p>День (12:00): ${noonTemp}°C</p>
+                        <p>Вечер (20:00): ${eveningTemp}°C</p>
+                    </div>
+                `;
+                document.querySelector('button').style.display = 'none';
+            })
+            .catch(error => console.error('Ошибка:', error));
+    }
+    </script>
+</head>
+<body>
+
+<header>
+        <h1>НГТУ, ФБ, Лабораторная работа 7</h1>
+</header>
+
+<main>
+
+    <button onclick="getWeather()">Получить прогноз погоды</button>
+    <div id="weather-result"></div>
+
+</main>  
+
+<footer>
+        <p>&copy; Денис Филиппов, ФБИ-33, 2 курс, 2025</p>
+</footer>
+
+</body>
+</html>
+
+
